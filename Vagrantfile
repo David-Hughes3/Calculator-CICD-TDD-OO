@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "2048"
         vb.cpus = 2
     end
-    jenkinsBox.vm.synced_folder "..", "/home/Calculator-CICD-TDD"
+    jenkinsBox.vm.synced_folder ".", "/home/Calculator-CICD-TDD"
     jenkinsBox.vm.network "forwarded_port", guest: 8080, host: 8080
     jenkinsBox.vm.provision "shell", inline: <<-SHELL
         sudo apt-get update
