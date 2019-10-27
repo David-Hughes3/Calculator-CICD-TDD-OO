@@ -14,7 +14,11 @@ public class Token
     private char operator;
     private int precedenceLevel;
 
-    Token(String input) throws ExceptionInInitializerError {
+    Token(String input) {
+
+        if(input == "" || input.trim() == ""){
+            throw new IllegalArgumentException("Empty string passed to be Token");
+        }
 
         if(isDouble(input)){
             type = TYPE.OPERAND;
@@ -33,7 +37,7 @@ public class Token
             }
         }
         else{
-            throw new ExceptionInInitializerError("Unknown String Passed to Be Token: " + input);
+            throw new IllegalArgumentException("Unknown String Passed to Be Token: " + input);
         }
         
     }
