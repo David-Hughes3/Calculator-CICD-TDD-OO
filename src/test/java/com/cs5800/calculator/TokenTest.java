@@ -50,4 +50,18 @@ public class TokenTest
         assertEquals((double)(-4.0), t.getOperand(), 0.01);
     }
 
+    @Test
+    public void checkOperatorValue(){
+        Token t = new Token("+");
+        assertEquals(t.getOperator(), "+");
+        t = new Token("-");
+        assertEquals(t.getOperator(), "-");
+        t = new Token("/");
+        assertEquals(t.getOperator(), "/");
+        t = new Token("%");
+        assertEquals(t.getOperator(), "%");
+        t = new Token("*");
+        assertEquals(t.getOperator(), "*");
+    }
+
 }
