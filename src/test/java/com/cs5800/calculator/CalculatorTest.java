@@ -1,6 +1,8 @@
 package com.cs5800.calculator;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.NoSuchElementException;
 
@@ -19,6 +21,8 @@ public class CalculatorTest
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
+    InputStream sysInBackup = System.in; // backup System.in to restore it later
+    ByteArrayInputStream in = new ByteArrayInputStream("2 + 2".getBytes());
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -26,6 +30,7 @@ public class CalculatorTest
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
+        System.setIn(in);
     }
 
 
@@ -50,21 +55,21 @@ public class CalculatorTest
     public void checkEvaluationOfEmptyExpressions(){
         Calculator c = new Calculator();
         thrown.expect(IllegalArgumentException.class);
-        double result = c.evaluate("");
+        c.evaluate("");
     }
 
     @Test
     public void InvalidExpressionTooManyOps(){
         Calculator c = new Calculator();
         thrown.expect(NoSuchElementException.class);
-        double result = c.evaluate("--7");
+        c.evaluate("--7");
     }
 
     @Test
     public void InvalidExpressionBadSpacing(){
         Calculator c = new Calculator();
         thrown.expect(IllegalArgumentException.class);
-        double result = c.evaluate("7 +3");
+        c.evaluate("7 +3");
     }
 
     @Test
@@ -76,6 +81,29 @@ public class CalculatorTest
         result = c.evaluate("7 + 3 / 3 - 3 * 3");
         assertEquals((double)(-1), result, 0.01);
     }
+
+
+    @Test
+    public void testMainMethodScannerInput(){
+        Calculator.main(new String[]{});
+        assertTrue(outContent.toString().contains("4.0"));
+    }
+
+
+    @Test
+    public void testMainMethodArgsInput(){
+        Calculator.main(new String[]{"3 + 3"});
+        assertEquals("6.0\r\n", outContent.toString());
+    }
+
+    @Test
+    public void testMainMethodManyArgsInput(){
+        Calculator.main(new String[]{"3 + 3", "6 - 6", "5 / 2"});
+        assertTrue(outContent.toString().contains("6.0"));
+        assertTrue(outContent.toString().contains("0.0"));
+        assertTrue(outContent.toString().contains("2.5"));
+    }
+
 
     @Test
     public void checkManyAdds(){
@@ -130,5 +158,6 @@ public class CalculatorTest
     @After
     public void cleanUpStreams() {
         System.setOut(null);
+        System.setIn(sysInBackup);
     }
 }
