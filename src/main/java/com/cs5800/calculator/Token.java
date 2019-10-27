@@ -102,6 +102,7 @@ public class Token
                 result = leftOperand.getOperand() * rightOperand.getOperand();
                 break;
             case '/':
+                if(rightOperand.getOperand() == 0.0){throw new ArithmeticException("Divide By Zero");}
                 result = leftOperand.getOperand() / rightOperand.getOperand();
                 break;
             case '%':
