@@ -15,4 +15,10 @@ public class TokenTest
         assertEquals(t.type, Token.TYPE.OPERAND);
     }
 
+    @Test
+    public void tokenShouldBeOfTypeOPERATOR(){
+        Token t = new Token("+");
+        assertEquals(t.type, Token.TYPE.OPERATOR);
+    }
+
 }
