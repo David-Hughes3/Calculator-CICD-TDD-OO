@@ -74,12 +74,23 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        System.out.println("Enter expression with components seperated by spaces: ");
-        String input = inputScanner.nextLine();
 
         Calculator calculator = new Calculator();
-        double result = calculator.evaluate(input);
-        System.out.println(result);
+        double result;
+
+        if(args.length == 0){
+            System.out.println("Enter expression with components seperated by spaces: ");
+            String input = inputScanner.nextLine();
+    
+            result = calculator.evaluate(input);
+            System.out.println(result);
+        }
+        else{
+            for(String arg: args){
+                result = calculator.evaluate(arg);
+                System.out.println(result);
+            }
+        }
     }
 
 }
