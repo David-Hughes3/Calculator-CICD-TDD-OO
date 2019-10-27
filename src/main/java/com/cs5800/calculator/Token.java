@@ -24,7 +24,7 @@ public class Token
             operator = input.charAt(0);
         }
         else{
-            throw new ExceptionInInitializerError("Unknown String Passed to Be Token");
+            throw new ExceptionInInitializerError("Unknown String Passed to Be Token: " + input);
         }
         
     }
