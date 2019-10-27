@@ -1,7 +1,5 @@
 package com.cs5800.calculator;
 
-import java.util.regex.Pattern;
-
 /**
  * Token
  */
@@ -11,17 +9,20 @@ public class Token
         OPERAND, OPERATOR;
     }
 
-    TYPE type;
+
+    private TYPE type;
     private double operand;
-    private char operator;
+    private String operator;
 
     Token(String input) throws ExceptionInInitializerError {
 
         if(isDouble(input)){
             type = TYPE.OPERAND;
+            operand = Double.parseDouble(input);
         }
         else if(input=="+" || input=="-" || input=="/" || input=="*" || input=="%"){
             type = TYPE.OPERATOR;
+            operator = input;
         }
         else{
             throw new ExceptionInInitializerError("Unknown String Passed to Be Token");
@@ -37,7 +38,16 @@ public class Token
         catch(NumberFormatException e){
             return false;
         }
-        
-        
+    }
+
+    public TYPE getTYPE(){
+        return type;
+    }
+
+    public double getOperand(){
+        if(type != TYPE.OPERAND){
+            throw new UnsupportedOperationException();
+        }
+        return operand;
     }
 }
