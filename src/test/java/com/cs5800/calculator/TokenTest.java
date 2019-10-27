@@ -9,4 +9,10 @@ import static org.junit.Assert.*;
 public class TokenTest
 {
 
+    @Test
+    public void tokenShouldBeOfTypeOPERAND(){
+        Token t = new Token("7");
+        assertEquals(t.type, Token.TYPE.OPERAND);
+    }
+
 }
