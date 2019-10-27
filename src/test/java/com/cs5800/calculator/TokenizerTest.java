@@ -12,13 +12,14 @@ public class TokenizerTest
     @Test
     public void checkTokenizerProducesCorrectTokens(){
         Tokenizer t = new Tokenizer("   7 + 3");
+        Token[] tokensFromTokenizer = t.getTokens();
 
         Token[] tokens = {new Token("7"), new Token("+"), new Token("3")};
         for(int i = 0; i<tokens.length ; i++){
             if(tokens[i].getTYPE() == Token.TYPE.OPERAND)
-                assertEquals(tokens[i].getOperand(), tokens[i].getOperand(), 0.01);
+                assertEquals(tokensFromTokenizer[i].getOperand(), tokens[i].getOperand(), 0.01);
             else if(tokens[i].getTYPE() == Token.TYPE.OPERATOR)
-                assertEquals(tokens[i].getOperator(), tokens[i].getOperator());
+                assertEquals(tokensFromTokenizer[i].getOperator(), tokens[i].getOperator());
         }
     }
 
