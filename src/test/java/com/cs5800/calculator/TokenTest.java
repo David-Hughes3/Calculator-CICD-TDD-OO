@@ -75,6 +75,39 @@ public class TokenTest
     }
 
     @Test
+    public void checkPrecendenceLevels(){
+        Token op_add = new Token("+");
+        Token op_mult = new Token("*");
+        Token op_divide = new Token("/");
+        Token op_mod = new Token("%");
+        Token op_sub = new Token("-");
+
+        assertEquals(4,op_add.getPrecedenceLevel());
+        assertEquals(4,op_sub.getPrecedenceLevel());
+
+        assertEquals(3,op_mult.getPrecedenceLevel());
+        assertEquals(3,op_divide.getPrecedenceLevel());
+        assertEquals(3,op_mod.getPrecedenceLevel());
+    }
+
+    @Test
+    public void comparePrecedenceLevels(){
+        Token op_add = new Token("+");
+        Token op_mult = new Token("*");
+        Token op_divide = new Token("/");
+        Token op_mod = new Token("%");
+        Token op_sub = new Token("-");
+
+        assertEquals(op_add.getPrecedenceLevel(), op_sub.getPrecedenceLevel());
+
+        assertEquals(op_mult.getPrecedenceLevel(), op_divide.getPrecedenceLevel());
+        assertEquals(op_mod.getPrecedenceLevel(), op_mult.getPrecedenceLevel());
+
+        assertTrue(op_add.getPrecedenceLevel()>op_mult.getPrecedenceLevel());
+        assertTrue(op_sub.getPrecedenceLevel()>op_mod.getPrecedenceLevel());
+    }
+
+    @Test
     public void checkAddition(){
         Token a = new Token("5.0");
         Token b = new Token("64");
