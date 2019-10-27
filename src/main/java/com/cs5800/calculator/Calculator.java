@@ -46,11 +46,11 @@ public class Calculator {
     }
 
     private void handlePushingOperand(Token newOperatorToken){
-        if(operatorStack.isEmpty() || newOperatorToken.comparePrecedenceTo(operatorStack.peek()) == 1 ) {
+        if(operatorStack.isEmpty() || newOperatorToken.comparePrecedenceTo(operatorStack.peek()) == -1 ) {
             operatorStack.push(newOperatorToken);
         }
         else{
-            while(!operatorStack.isEmpty() && newOperatorToken.comparePrecedenceTo(operatorStack.peek()) <= 0){
+            while(!operatorStack.isEmpty() && newOperatorToken.comparePrecedenceTo(operatorStack.peek()) >= 0){
                 computeWithTopOperator();
             }
             operatorStack.push(newOperatorToken);
