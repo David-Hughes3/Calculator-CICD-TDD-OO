@@ -9,10 +9,9 @@ public class Token
         OPERAND, OPERATOR;
     }
 
-
     private TYPE type;
     private double operand;
-    private String operator;
+    private char operator;
 
     Token(String input) throws ExceptionInInitializerError {
 
@@ -20,15 +19,22 @@ public class Token
             type = TYPE.OPERAND;
             operand = Double.parseDouble(input);
         }
-        else if(input=="+" || input=="-" || input=="/" || input=="*" || input=="%"){
+        else if(input.length() == 1 && input.charAt(0) =='+' || input.charAt(0) =='-' || input.charAt(0) =='/' || input.charAt(0) =='*' || input.charAt(0) =='%'){
             type = TYPE.OPERATOR;
-            operator = input;
+            operator = input.charAt(0);
         }
         else{
             throw new ExceptionInInitializerError("Unknown String Passed to Be Token");
         }
         
     }
+
+    Token(double input){
+        type = TYPE.OPERAND;
+        operand = input;
+    }
+
+
 
     private boolean isDouble(String str){
         try{
@@ -51,10 +57,34 @@ public class Token
         return operand;
     }
 
-    public String getOperator(){
+    public char getOperator(){
         if(type != TYPE.OPERATOR){
             throw new UnsupportedOperationException();
         }
         return operator;
+    }
+
+    public Token operate(Token leftOperand, Token rightOperand){
+        double result = 0.0;
+
+        switch(this.operator){
+            case '+':
+                result = leftOperand.getOperand() + rightOperand.getOperand();
+                break;
+            case '-':
+                result = leftOperand.getOperand() - rightOperand.getOperand();
+                break;
+            case '*':
+                result = leftOperand.getOperand() * rightOperand.getOperand();
+                break;
+            case '/':
+                result = leftOperand.getOperand() / rightOperand.getOperand();
+                break;
+            case '%':
+                result = leftOperand.getOperand() % rightOperand.getOperand();
+                break;
+        }
+
+        return new Token(result);
     }
 }
