@@ -5,5 +5,13 @@ package com.cs5800.calculator;
  */
 public class Token
 {
+    public enum TYPE{
+        OPERAND;
+    }
 
+    TYPE type;
+
+    Token(String input){
+        type = TYPE.OPERAND;
+    }
 }
