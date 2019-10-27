@@ -12,13 +12,28 @@ public class TokenTest
     @Test
     public void tokenShouldBeOfTypeOPERAND(){
         Token t = new Token("7");
-        assertEquals(t.type, Token.TYPE.OPERAND);
+        assertEquals(t.getTYPE(), Token.TYPE.OPERAND);
+
+        t = new Token("4.0");
+        assertEquals(t.getTYPE(), Token.TYPE.OPERAND);
     }
 
     @Test
     public void tokenShouldBeOfTypeOPERATOR(){
         Token t = new Token("+");
-        assertEquals(t.type, Token.TYPE.OPERATOR);
+        assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
+
+        t = new Token("-");
+        assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
+
+        t = new Token("/");
+        assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
+
+        t = new Token("%");
+        assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
+
+        t = new Token("*");
+        assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
     }
 
     @Test(expected = ExceptionInInitializerError.class)
@@ -26,5 +41,13 @@ public class TokenTest
         Token t = new Token("|");
     }
 
+    @Test
+    public void checkNegativeSignWorks(){
+        Token t = new Token("-7");
+        assertEquals((double)(-7.0), t.getOperand(), 0.01);
+
+        t = new Token("-4.0");
+        assertEquals((double)(-4.0), t.getOperand(), 0.01);
+    }
 
 }
