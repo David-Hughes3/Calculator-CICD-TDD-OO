@@ -50,7 +50,7 @@ public class Token
 
     private boolean isDouble(String str){
         try{
-            double x = Double.parseDouble(str);
+            Double.parseDouble(str);
             return true;
         }
         catch(NumberFormatException e){
