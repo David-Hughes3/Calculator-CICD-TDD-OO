@@ -12,6 +12,7 @@ public class Token
     private TYPE type;
     private double operand;
     private char operator;
+    private int precedenceLevel;
 
     Token(String input) throws ExceptionInInitializerError {
 
@@ -22,6 +23,14 @@ public class Token
         else if(input.length() == 1 && input.charAt(0) =='+' || input.charAt(0) =='-' || input.charAt(0) =='/' || input.charAt(0) =='*' || input.charAt(0) =='%'){
             type = TYPE.OPERATOR;
             operator = input.charAt(0);
+            
+            //https://en.wikipedia.org/wiki/Order_of_operations#Programming_languages
+            if(operator == '+' || operator == '-'){
+                precedenceLevel = 4;
+            }
+            else if (operator == '*' || operator == '/' || operator == '%'){
+                precedenceLevel = 3;
+            }
         }
         else{
             throw new ExceptionInInitializerError("Unknown String Passed to Be Token: " + input);
@@ -33,7 +42,6 @@ public class Token
         type = TYPE.OPERAND;
         operand = input;
     }
-
 
 
     private boolean isDouble(String str){
@@ -62,6 +70,13 @@ public class Token
             throw new UnsupportedOperationException();
         }
         return operator;
+    }
+
+    public int getPrecedenceLevel(){
+        if(type != TYPE.OPERATOR){
+            throw new UnsupportedOperationException();
+        }
+        return precedenceLevel;
     }
 
     public Token operate(Token leftOperand, Token rightOperand){
