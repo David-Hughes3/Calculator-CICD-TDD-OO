@@ -53,15 +53,112 @@ public class TokenTest
     @Test
     public void checkOperatorValue(){
         Token t = new Token("+");
-        assertEquals(t.getOperator(), "+");
+        assertEquals(t.getOperator(), '+');
         t = new Token("-");
-        assertEquals(t.getOperator(), "-");
+        assertEquals(t.getOperator(), '-');
         t = new Token("/");
-        assertEquals(t.getOperator(), "/");
+        assertEquals(t.getOperator(), '/');
         t = new Token("%");
-        assertEquals(t.getOperator(), "%");
+        assertEquals(t.getOperator(), '%');
         t = new Token("*");
-        assertEquals(t.getOperator(), "*");
+        assertEquals(t.getOperator(), '*');
+    }
+
+    @Test
+    public void operateOverTokensShouldReturnCorrectValue(){
+        Token a = new Token("5");
+        Token b = new Token("4");
+        Token op = new Token("+");
+        Token result = op.operate(a, b);
+
+        assertEquals(result.getOperand(), (double)(9.0), 0.01);
+    }
+
+    @Test
+    public void checkAddition(){
+        Token a = new Token("5.0");
+        Token b = new Token("64");
+        Token op = new Token("+");
+        Token result = op.operate(a, b);
+        assertEquals(result.getOperand(), (double)(69.0), 0.01);
+
+        result = op.operate(new Token(-5), new Token(-6));
+        assertEquals(result.getOperand(), (double)(-11), 0.01);
+
+        result = op.operate(new Token(6), new Token(-5));
+        assertEquals(result.getOperand(), (double)(1), 0.01);
+
+        result = op.operate(new Token(-6), new Token(5));
+        assertEquals(result.getOperand(), (double)(-1), 0.01);
+    }
+
+    @Test
+    public void checkMult(){
+        Token a = new Token("5");
+        Token b = new Token("4");
+        Token op = new Token("*");
+        Token result = op.operate(a, b);
+        assertEquals(result.getOperand(), (double)(20), 0.01);
+
+        result = op.operate(new Token(6), new Token(5));
+        assertEquals(result.getOperand(), (double)(30), 0.01);
+
+        result = op.operate(new Token(-6), new Token(5));
+        assertEquals(result.getOperand(), (double)(-30), 0.01);
+
+        result = op.operate(new Token(6), new Token(-5));
+        assertEquals(result.getOperand(), (double)(-30), 0.01);
+
+
+    }
+
+    @Test
+    public void checkDivision(){
+        Token a = new Token("20");
+        Token b = new Token("5");
+        Token op = new Token("/");
+        Token result = op.operate(a, b);
+        assertEquals(result.getOperand(), (double)(4.0), 0.01);
+
+        result = op.operate(new Token(-6), new Token(5));
+        assertEquals(result.getOperand(), (double)(-1.2), 0.01); 
+        
+        result = op.operate(new Token(6), new Token(-5));
+        assertEquals(result.getOperand(), (double)(-1.2), 0.01);   
+    }
+
+    @Test
+    public void checkSubtraction(){
+        Token a = new Token("5");
+        Token b = new Token("4");
+        Token op = new Token("-");
+        Token result = op.operate(a, b);
+        assertEquals(result.getOperand(), (double)(1.0), 0.01);
+
+        result = op.operate(new Token(6), new Token(5));
+        assertEquals(result.getOperand(), (double)(1), 0.01);   
+
+        result = op.operate(new Token(-6), new Token(5));
+        assertEquals(result.getOperand(), (double)(-11), 0.01);  
+        
+        result = op.operate(new Token(-6), new Token(-5));
+        assertEquals(result.getOperand(), (double)(-1), 0.01);   
+    }
+
+    @Test
+    public void checkModulus(){
+        Token a = new Token("5");
+        Token b = new Token("4");
+        Token op = new Token("%");
+        Token result = op.operate(a, b);
+
+        assertEquals(result.getOperand(), (double)(1), 0.01);
+
+        result = op.operate(new Token(20), new Token(5));
+        assertEquals(result.getOperand(), (double)(0), 0.01); 
+        
+        result = op.operate(new Token(60), new Token(7));
+        assertEquals(result.getOperand(), (double)(4), 0.01);   
     }
 
 }
