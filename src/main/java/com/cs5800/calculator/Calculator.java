@@ -11,22 +11,67 @@ public class Calculator {
     private static Scanner inputScanner = new Scanner(System.in);
 
     Calculator() {
-        setOperatorStack(new TokenStack());
-        setOperandStack(new TokenStack());
+        operatorStack = new TokenStack();
+        operandStack = new TokenStack();
     }
 
 
 
     public double evaluate(String input) {
-        double result = 10.0;
+        double result;
         
         Token[] inputTokens = new Tokenizer(input).getTokens();
+        handleAllInputTokens(inputTokens);
+        finishOperatorStack();
 
+        result = operandStack.pop().getOperand();
+        if(!operatorStack.isEmpty() || !operandStack.isEmpty()){
+            throw new IllegalArgumentException("Invalid input string (unbalanced number of operands/operators): " + input);
+        } 
 
         return result;
     }
 
+    private void handleAllInputTokens(Token[] inputTokens){
+        for(int i = 0; i < inputTokens.length; i++){
+            Token currentToken = inputTokens[i];
 
+            if(currentToken.getTYPE() == Token.TYPE.OPERAND){
+                operandStack.push(currentToken);
+            }
+            else if(currentToken.getTYPE() == Token.TYPE.OPERATOR){
+                handlePushingOperand(currentToken);
+            }
+        }
+    }
+
+    private void handlePushingOperand(Token newOperatorToken){
+        if(operatorStack.isEmpty() || newOperatorToken.comparePrecedenceTo(operatorStack.peek()) == 1 ) {
+            operatorStack.push(newOperatorToken);
+        }
+        else{
+            while(!operatorStack.isEmpty() && newOperatorToken.comparePrecedenceTo(operatorStack.peek()) <= 0){
+                computeWithTopOperator();
+            }
+            operatorStack.push(newOperatorToken);
+        }
+    }
+
+    private void computeWithTopOperator(){
+        Token op = operatorStack.pop();
+        Token rightOperand = operandStack.pop();
+        Token leftOperand = operandStack.pop();
+        
+
+        Token result = op.operate(leftOperand, rightOperand);
+        operandStack.push(result);
+    }
+
+    private void finishOperatorStack(){
+        while(!operatorStack.isEmpty()){
+            computeWithTopOperator();
+        }
+    }
 
     public static void main(String[] args) {
         System.out.println("Enter expression with components seperated by spaces: ");
@@ -37,19 +82,4 @@ public class Calculator {
         System.out.println(result);
     }
 
-
-
-    //getters/setters for unit testing
-    public TokenStack getOperatorStack() {
-        return operatorStack;
-    }
-    public void setOperatorStack(TokenStack operatorStack) {
-        this.operatorStack = operatorStack;
-    }
-    public TokenStack getOperandStack() {
-        return operandStack;
-    }
-    public void setOperandStack(TokenStack operandStack) {
-        this.operandStack = operandStack;
-    }
 }
