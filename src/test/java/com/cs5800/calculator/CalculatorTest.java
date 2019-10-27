@@ -89,11 +89,10 @@ public class CalculatorTest
         assertTrue(outContent.toString().contains("4.0"));
     }
 
-
     @Test
     public void testMainMethodArgsInput(){
         Calculator.main(new String[]{"3 + 3"});
-        assertEquals("6.0\r\n", outContent.toString());
+        assertTrue(outContent.toString().contains("6.0"));
     }
 
     @Test
