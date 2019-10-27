@@ -22,9 +22,10 @@ public class CalculatorTest
 
 
     @Test
-    public void testHello(){
-        Calculator.hello();
-        assertEquals("hello" + System.getProperty("line.separator"), outContent.toString());
+    public void checkSimpleEvaluation(){
+        Calculator c = new Calculator();
+        double result = c.evaluate("7 + 3");
+        assertEquals((double)(10), result, 0.01);
     }
 
 
