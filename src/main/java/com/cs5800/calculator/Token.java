@@ -79,6 +79,15 @@ public class Token
         return precedenceLevel;
     }
 
+    public int comparePrecedenceTo(Token rightOperand){
+        if(this.getPrecedenceLevel() > rightOperand.getPrecedenceLevel())
+            return 1;
+        else if(this.getPrecedenceLevel() < rightOperand.getPrecedenceLevel())
+            return -1;
+        else
+            return 0;
+    }
+
     public Token operate(Token leftOperand, Token rightOperand){
         double result = 0.0;
 
