@@ -99,13 +99,19 @@ public class TokenTest
         Token op_sub = new Token("-");
 
         assertEquals(op_add.getPrecedenceLevel(), op_sub.getPrecedenceLevel());
+        assertEquals(op_add.comparePrecedenceTo(op_sub), 0);
 
         assertEquals(op_mult.getPrecedenceLevel(), op_divide.getPrecedenceLevel());
         assertEquals(op_mod.getPrecedenceLevel(), op_mult.getPrecedenceLevel());
 
         assertTrue(op_add.getPrecedenceLevel()>op_mult.getPrecedenceLevel());
+        assertEquals(op_add.comparePrecedenceTo(op_mult), 1);
         assertTrue(op_sub.getPrecedenceLevel()>op_mod.getPrecedenceLevel());
+
+        assertEquals(op_mult.comparePrecedenceTo(op_add), -1);
     }
+
+
 
     @Test
     public void checkAddition(){
