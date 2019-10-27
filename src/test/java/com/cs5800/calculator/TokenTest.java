@@ -41,9 +41,13 @@ public class TokenTest
         assertEquals(t.getTYPE(), Token.TYPE.OPERATOR);
     }
 
-    @Test(expected = ExceptionInInitializerError.class)
+    @Test
     public void checkTokenConstructorInitError(){
+        thrown.expect(ExceptionInInitializerError.class);
         Token t = new Token("|");
+
+        thrown.expect(ExceptionInInitializerError.class);
+        t = new Token("");
     }
 
     @Test
