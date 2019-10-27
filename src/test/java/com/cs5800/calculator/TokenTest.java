@@ -21,4 +21,10 @@ public class TokenTest
         assertEquals(t.type, Token.TYPE.OPERATOR);
     }
 
+    @Test(expected = ExceptionInInitializerError.class)
+    public void checkTokenConstructorInitError(){
+        Token t = new Token("|");
+    }
+
+
 }
