@@ -1,13 +1,18 @@
 package com.cs5800.calculator;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 
 /**
  * Unit test for tokenizer.
  */
 public class TokenTest
 {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void tokenShouldBeOfTypeOPERAND(){
@@ -147,8 +152,20 @@ public class TokenTest
 
         result = op.operate(new Token(6), new Token(-5));
         assertEquals(result.getOperand(), (double)(-30), 0.01);
+    }
 
+    @Test 
+    public void multiplyByZeroShouldEqualZero(){
+        Token op = new Token("*");
 
+        Token result = op.operate(new Token(0), new Token(5));
+        assertEquals(result.getOperand(), (double)(0), 0.000001);
+
+        result = op.operate(new Token(5), new Token(0));
+        assertEquals(result.getOperand(), (double)(0), 0.000001);
+
+        result = op.operate(new Token(0), new Token(0));
+        assertEquals(result.getOperand(), (double)(0), 0.000001);
     }
 
     @Test
@@ -164,6 +181,20 @@ public class TokenTest
         
         result = op.operate(new Token(6), new Token(-5));
         assertEquals(result.getOperand(), (double)(-1.2), 0.01);   
+    }
+
+    @Test
+    public void checkHandlingOfZeroInDivision(){
+        Token op = new Token("/");
+
+        Token result = op.operate(new Token(0), new Token(5));
+        assertEquals(result.getOperand(), (double)(0), 0.000001);
+
+        thrown.expect(ArithmeticException.class);
+        result = op.operate(new Token(5), new Token(0));
+
+        thrown.expect(ArithmeticException.class);
+        result = op.operate(new Token(0), new Token(0));
     }
 
     @Test
