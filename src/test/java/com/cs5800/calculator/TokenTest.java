@@ -44,13 +44,13 @@ public class TokenTest
     @Test
     public void checkTokenConstructorInitError(){
         thrown.expect(IllegalArgumentException.class);
-        Token t = new Token("|");
+        new Token("|");
     }
 
     @Test
     public void checkTokenConstructionOnEmptyString(){
         thrown.expect(IllegalArgumentException.class);
-        Token t = new Token("");
+        new Token("");
     }
 
     @Test
