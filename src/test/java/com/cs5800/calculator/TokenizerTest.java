@@ -1,11 +1,7 @@
 package com.cs5800.calculator;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.After;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Unit test for tokenizer.
@@ -13,23 +9,19 @@ import static org.junit.Assert.*;
 public class TokenizerTest
 {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-
     @Test
-    public void testHello(){
-        Calculator.hello();
-        assertEquals("hello" + System.getProperty("line.separator"), outContent.toString());
+    public void checkTokenizerProducesCorrectTokens(){
+        Tokenizer t = new Tokenizer("   7 + 3");
+
+        Token[] tokens = {new Token("7"), new Token("+"), new Token("3")};
+        for(int i = 0; i<tokens.length ; i++){
+            if(tokens[i].getTYPE() == Token.TYPE.OPERAND)
+                assertEquals(tokens[i].getOperand(), tokens[i].getOperand(), 0.01);
+            else if(tokens[i].getTYPE() == Token.TYPE.OPERATOR)
+                assertEquals(tokens[i].getOperator(), tokens[i].getOperator());
+        }
     }
 
+    
 
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
-    }
 }
