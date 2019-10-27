@@ -2,8 +2,12 @@ package com.cs5800.calculator;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.NoSuchElementException;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.After;
 import static org.junit.Assert.*;
 
@@ -14,6 +18,10 @@ public class CalculatorTest
 {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUpStreams() {
@@ -34,11 +42,29 @@ public class CalculatorTest
     @Test
     public void checkEvaluationOfComplexExpressions(){
         Calculator c = new Calculator();
-        double result = c.evaluate("7 + 3");
-        assertEquals((double)(10), result, 0.01);
+        double result = c.evaluate("-7 % 3 + 5 * -3 - 15 + 5 / -5");
+        assertEquals((double)(-32), result, 0.01);
+    }
 
-        result = c.evaluate("7 - 3");
-        assertEquals((double)(4), result, 0.01);
+    @Test
+    public void checkEvaluationOfEmptyExpressions(){
+        Calculator c = new Calculator();
+        thrown.expect(IllegalArgumentException.class);
+        double result = c.evaluate("");
+    }
+
+    @Test
+    public void InvalidExpressionTooManyOps(){
+        Calculator c = new Calculator();
+        thrown.expect(NoSuchElementException.class);
+        double result = c.evaluate("--7");
+    }
+
+    @Test
+    public void InvalidExpressionBadSpacing(){
+        Calculator c = new Calculator();
+        thrown.expect(IllegalArgumentException.class);
+        double result = c.evaluate("7 +3");
     }
 
     @Test
