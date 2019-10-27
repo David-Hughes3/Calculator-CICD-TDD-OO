@@ -17,7 +17,7 @@ In this Lab you will build a calculator program that can:
 ## CICD folder contains Vagrantfile and Jenkinsfile for running a CICD pipeline
 
 Setup for Jenkins-Vagrant box
-1. from dir Calculator-CICD-TDD/CICD/ run command "$vagrant up"
+1. from dir run command "$vagrant up"
 2. navigate to "localhost:8080" from host computer once box is running
     - should see jenkins setup
 3. "sudo cat /var/lib/jenkins/secrets/initialAdminPassword" in the vagrant box or get the password from the step 1 console output
