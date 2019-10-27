@@ -50,4 +50,11 @@ public class Token
         }
         return operand;
     }
+
+    public String getOperator(){
+        if(type != TYPE.OPERATOR){
+            throw new UnsupportedOperationException();
+        }
+        return operator;
+    }
 }
