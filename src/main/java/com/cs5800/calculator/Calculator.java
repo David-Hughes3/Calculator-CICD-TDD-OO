@@ -24,7 +24,7 @@ public class Calculator {
         handleAllInputTokens(inputTokens);
         finishOperatorStack();
 
-        result = operandStack.pop().getOperand();
+        result = ((OperandToken)operandStack.pop()).getOperand();
         if(!operatorStack.isEmpty() || !operandStack.isEmpty()){
             throw new IllegalArgumentException("Invalid input string (unbalanced number of operands/operators): " + input);
         } 
@@ -36,21 +36,21 @@ public class Calculator {
         for(int i = 0; i < inputTokens.length; i++){
             Token currentToken = inputTokens[i];
 
-            if(currentToken.getTYPE() == Token.TYPE.OPERAND){
+            if(currentToken instanceof OperandToken){
                 operandStack.push(currentToken);
             }
-            else if(currentToken.getTYPE() == Token.TYPE.OPERATOR){
+            else if(currentToken instanceof OperatorToken){
                 handlePushingOperand(currentToken);
             }
         }
     }
 
     private void handlePushingOperand(Token newOperatorToken){
-        if(operatorStack.isEmpty() || newOperatorToken.comparePrecedenceTo(operatorStack.peek()) == -1 ) {
+        if(operatorStack.isEmpty() || ((OperatorToken)newOperatorToken).comparePrecedenceTo(((OperatorToken)operatorStack.peek())) == -1 ) {
             operatorStack.push(newOperatorToken);
         }
         else{
-            while(!operatorStack.isEmpty() && newOperatorToken.comparePrecedenceTo(operatorStack.peek()) >= 0){
+            while(!operatorStack.isEmpty() && ((OperatorToken)newOperatorToken).comparePrecedenceTo(((OperatorToken)operatorStack.peek())) >= 0){
                 computeWithTopOperator();
             }
             operatorStack.push(newOperatorToken);
@@ -63,7 +63,7 @@ public class Calculator {
         Token leftOperand = operandStack.pop();
         
 
-        Token result = op.operate(leftOperand, rightOperand);
+        Token result = ((OperatorToken)op).operate((OperandToken)leftOperand, (OperandToken)rightOperand);
         operandStack.push(result);
     }
 

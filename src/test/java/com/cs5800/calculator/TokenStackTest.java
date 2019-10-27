@@ -22,8 +22,8 @@ public class TokenStackTest
 
     @Test 
     public void checkPopAndPush(){
-        Token a = new Token("7");
-        Token b = new Token("+");
+        Token a = TokenFactory.getInstanceToken("7");
+        Token b = TokenFactory.getInstanceToken("+");
         TokenStack tokenStack = new TokenStack();
         tokenStack.push(b);
         tokenStack.push(a);
@@ -37,7 +37,7 @@ public class TokenStackTest
 
     @Test
     public void checkPopForNoSuchElementException(){
-        Token a = new Token("7");
+        Token a = TokenFactory.getInstanceToken("7");
         TokenStack tokenStack = new TokenStack();
         tokenStack.push(a);
 
@@ -50,7 +50,7 @@ public class TokenStackTest
 
     @Test
     public void checkIsEmpty(){
-        Token a = new Token("7");
+        Token a = TokenFactory.getInstanceToken("7");
         TokenStack tokenStack = new TokenStack();
         tokenStack.push(a);
 
@@ -64,8 +64,8 @@ public class TokenStackTest
 
     @Test 
     public void checkPeek(){
-        Token a = new Token("7");
-        Token b = new Token("+");
+        Token a = TokenFactory.getInstanceToken("7");
+        Token b = TokenFactory.getInstanceToken("+");
         TokenStack tokenStack = new TokenStack();
         tokenStack.push(b);
         tokenStack.push(a);

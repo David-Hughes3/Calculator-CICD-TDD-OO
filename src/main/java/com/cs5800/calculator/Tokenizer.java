@@ -12,7 +12,7 @@ public class Tokenizer
         tokens = new Token[splitBySpaces .length];
 
         for(int i = 0; i < splitBySpaces.length; i++){
-            tokens[i] = new Token(splitBySpaces[i]);
+            tokens[i] = TokenFactory.getInstanceToken(splitBySpaces[i]);
         }
     }
 

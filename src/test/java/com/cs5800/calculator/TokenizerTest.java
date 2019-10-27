@@ -14,12 +14,12 @@ public class TokenizerTest
         Tokenizer t = new Tokenizer("   7 + 3");
         Token[] tokensFromTokenizer = t.getTokens();
 
-        Token[] tokens = {new Token("7"), new Token("+"), new Token("3")};
+        Token[] tokens = {TokenFactory.getInstanceToken("7"), TokenFactory.getInstanceToken("+"), TokenFactory.getInstanceToken("3")};
         for(int i = 0; i<tokens.length ; i++){
-            if(tokens[i].getTYPE() == Token.TYPE.OPERAND)
-                assertEquals(tokensFromTokenizer[i].getOperand(), tokens[i].getOperand(), 0.01);
-            else if(tokens[i].getTYPE() == Token.TYPE.OPERATOR)
-                assertEquals(tokensFromTokenizer[i].getOperator(), tokens[i].getOperator());
+            if(tokens[i] instanceof OperandToken)
+                assertEquals(((OperandToken)tokensFromTokenizer[i]).getOperand(), ((OperandToken)tokens[i]).getOperand(), 0.01);
+            else if(tokens[i] instanceof OperatorToken)
+                assertEquals(((OperatorToken)tokensFromTokenizer[i]).getOperator(), ((OperatorToken)tokens[i]).getOperator());
         }
     }
 
