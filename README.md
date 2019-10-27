@@ -1,9 +1,20 @@
 # Calculator with OOA/OOD/OOP and CICD and TDD
 
-CS5800 Lab3
+## CS5800 Lab3
+In this Lab you will build a calculator program that can:
+1. Add +
+2. Subtract -
+3. Multiply *
+4. Divide /
+5. Modulus(Remainder) %
 
+### Steps:
+1. Go through the steps of OOA to analyze the project
+2. Go through the steps of OOD to design the project
+3. Setup your CI/CD pipeline
+4. Start OOP using TDD!
 
-CICD folder contains Vagrantfile and Jenkinsfile for running a CICD pipeline
+## CICD folder contains Vagrantfile and Jenkinsfile for running a CICD pipeline
 
 Setup for Jenkins-Vagrant box
 1. from dir Calculator-CICD-TDD/CICD/ run command "$vagrant up"
