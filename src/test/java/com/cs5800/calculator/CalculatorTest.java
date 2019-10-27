@@ -26,8 +26,10 @@ public class CalculatorTest
         Calculator c = new Calculator();
         double result = c.evaluate("7 + 3");
         assertEquals((double)(10), result, 0.01);
-    }
 
+        result = c.evaluate("7 - 3");
+        assertEquals((double)(4), result, 0.01);
+    }
 
     @After
     public void cleanUpStreams() {
