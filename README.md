@@ -14,7 +14,7 @@ In this Lab you will build a calculator program that can:
 3. Setup your CI/CD pipeline
 4. Start OOP using TDD!
 
-## CICD folder contains Vagrantfile and Jenkinsfile for running a CICD pipeline
+## Repo folder contains Vagrantfile and Jenkinsfile for running a CICD pipeline
 
 Setup for Jenkins-Vagrant box
 1. from dir run command "$vagrant up"
